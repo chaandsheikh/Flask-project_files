@@ -1,0 +1,89 @@
+{% extends 'layout.html' %}
+
+{% block contents %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul class=flashes>
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}" role="alert">
+        <li>{{ message }}</li>
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="media">
+            <img class="align-self-end mr-3" src="{{ url_for('static', filename='media/profile_pics/'+current_user.profile_pic) }}" alt="Generic placeholder image">
+            <div class="media-body">
+                <h5 class="mt-0">Accout Details</h5>
+                <p>Welcome {{ current_user.name }}</p>
+               
+            </div>
+        </div>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.name.label }} {{ form.name() }} <br />
+                    {% if form.name.errors %}
+                    {% for error in form.name.errors %}
+                    <div class='text-danger'>{{ form.name.label }} {{error}} </div> <br />
+                    {% endfor %}
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.age.label }} {{ form.age() }} <br />
+                    {% if form.age.errors %}
+                    {% for error in form.age.errors %}
+                    <div class='text-danger'>{{ form.age.label }} {{error}} </div> <br />
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+
+
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.email.label }} {{ form.email() }} <br />
+                    {% if form.email.errors %}
+                    {% for error in form.email.errors %}
+                    <div class='text-danger'> {{ form.email.label }} {{error}} </div> <br />
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                    {{ form.profile_pic.label }} {{ form.profile_pic() }} <br />
+                    {% if form.profile_pic.errors %}
+                    {% for error in form.profile_pic.errors %}
+                    <div class='text-danger'> {{ form.profile_pic.label }} {{error}} </div> <br />
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+
+            <div id="success"></div>
+            {{ form.submit() }}
+
+        </form>
+        </h3>
+    </div>
+</div>
+
+{% endblock contents%}

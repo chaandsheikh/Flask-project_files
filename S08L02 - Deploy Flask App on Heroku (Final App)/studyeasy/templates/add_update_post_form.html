@@ -1,0 +1,58 @@
+{% extends 'layout.html'  %}
+
+{% block contents %}
+
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<ul class=flashes>
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}" role="alert">
+        <li>{{ message }}</li>
+    </div>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <h3>Add Article<h3></h3>
+            <form method="POST" action="">
+                {{ form.csrf_token }}
+
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        {{ form.title.label }} {{ form.title() }} <br />
+                        {% if form.title.errors %}
+                        {% for error in form.title.errors %}
+                        <div class='text-danger'> {{ form.title.label }} {{error}} </div> <br />
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="form-group floating-label-form-group controls">
+                        {{ form.content.label }} {{ form.content() }} <br />
+                        {% if form.content.errors %}
+                        {% for error in form.content.errors %}
+                        <div class='text-danger'>{{ form.content.label }} {{error}}</div> <br />
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div id="success">
+                {{ form.submit() }}
+                </div>
+            </form>
+        </h3>
+    </div>
+
+
+    
+{% endblock contents%}
